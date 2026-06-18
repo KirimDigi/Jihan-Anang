@@ -4966,6 +4966,7 @@
                                 const form = document.getElementById("commentform-11786");
                                 const commentContainer = document.getElementById("saic-container-comment-11786");
                                 const commentCountSpan = document.querySelector("#saic-link-11786 span");
+                                const scriptUrl = "https://script.google.com/macros/s/AKfycbzcx2M7LCchqEgAY0DabG9Crj7n5crnu4ze3toVBBteBBQfmA_-XA-iZjiGgPQ3QoeVrg/exec";
 
                                 // Default/mock comments
                                 const defaultWishes = [];
@@ -5079,8 +5080,6 @@
                                     const attendance = attendanceSelect ? attendanceSelect.value : "";
                                     const guest = guestSelect ? guestSelect.value : "1";
                                     const comment = commentTextarea ? commentTextarea.value : "";
-
-                                    const scriptUrl = "https://script.google.com/macros/s/AKfycbzcx2M7LCchqEgAY0DabG9Crj7n5crnu4ze3toVBBteBBQfmA_-XA-iZjiGgPQ3QoeVrg/exec";
 
                                     if (name && attendance && comment) {
                                       // 1. Save locally first
