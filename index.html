@@ -16,10 +16,10 @@
         guestName = urlParams.get('to');
       } else {
         const hash = window.location.hash;
-        if (hash && hash.includes('to=')) {
-          const match = hash.match(/to=([^&]+)/);
-          if (match) {
-            guestName = decodeURIComponent(match[1]);
+        if (hash) {
+          const hashParams = new URLSearchParams(hash.replace(/^#/, ''));
+          if (hashParams.has('to')) {
+            guestName = hashParams.get('to');
           }
         }
       }
