@@ -5040,8 +5040,28 @@
                                   );
                                 }
 
-                                // Initial render
-                                renderWishes();
+                                // Fetch wishes from Google Sheets
+                                function fetchWishes() {
+                                  if (scriptUrl && scriptUrl !== "MASUKKAN_URL_WEB_APP_DISINI") {
+                                    fetch(scriptUrl)
+                                      .then(response => response.json())
+                                      .then(data => {
+                                        if (Array.isArray(data)) {
+                                          localStorage.setItem("wedding_wishes_jihan_anang", JSON.stringify(data));
+                                          renderWishes();
+                                        }
+                                      })
+                                      .catch(err => {
+                                        console.log("Menggunakan fallback localStorage:", err);
+                                        renderWishes();
+                                      });
+                                  } else {
+                                    renderWishes();
+                                  }
+                                }
+
+                                // Initial fetch
+                                fetchWishes();
 
                                 if (form) {
                                   // Menggunakan useCapture = true agar listener kita berjalan paling awal sebelum jQuery/script lain memotong
@@ -5060,7 +5080,7 @@
                                     const guest = guestSelect ? guestSelect.value : "1";
                                     const comment = commentTextarea ? commentTextarea.value : "";
 
-                                    const scriptUrl = "https://script.google.com/macros/s/AKfycbwrtfp9TXyBd_kro0D0hFOa-VgL8sqSh90OW-scvwHebyU-tylqv6R6X8sq4jTjDxJo2Q/exec";
+                                    const scriptUrl = "https://script.google.com/macros/s/AKfycbzcx2M7LCchqEgAY0DabG9Crj7n5crnu4ze3toVBBteBBQfmA_-XA-iZjiGgPQ3QoeVrg/exec";
 
                                     if (name && attendance && comment) {
                                       // 1. Save locally first
@@ -5092,6 +5112,7 @@
                                         })
                                           .then(() => {
                                             console.log("Data RSVP berhasil terkirim ke Google Sheets!");
+                                            setTimeout(fetchWishes, 1500);
                                           })
                                           .catch(err => {
                                             console.error("Gagal mengirim ke Google Sheets:", err);
